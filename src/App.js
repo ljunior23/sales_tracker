@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
 
-function App() {
+import Header from './components/Header';
+import Form from './components/SaleForm'
+import List from './components/SaleList'
+
+const App = () => {
+    const [sale, setSale ] = useState([]);
+    const [totalSale, setTotalSale ] = useState(0);
+
+    useEffect(() => {
+        let temp = 0;
+        for(let i = 0; i< sale.length; i++){
+            temp += parseInt(sale[i].price);
+        }
+
+        setTotalSale(temp);
+    }, [sale])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+        <Header totalSale={totalSale} />
+        <Form sale={sale} setSale={setSale} />
+        <List sale={sale} setSale={setSale} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
